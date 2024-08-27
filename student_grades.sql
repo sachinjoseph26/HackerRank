@@ -8,14 +8,14 @@
 -- If there is more than one student with the same grade (1-7) assigned to them, order those particular students by their marks in ascending order.
 -- Write a query to help Eve.
 
+
 with cte as (
     SELECT s.Name as name,g.grade as grade,s.marks as mark
 FROM Students S
 JOIN 
 Grades G ON S.Marks BETWEEN G.Min_Mark AND G.Max_Mark
 )
-select (case when grade<8 then 'NULL'
-        else name end),
+select case when grade<8 then NULL
+        else name end as names,
         grade,mark from cte
-order by grade desc,mark asc,
-case when grade >=8 then name else mark end asc;
+order by grade desc,name asc,mark asc;
